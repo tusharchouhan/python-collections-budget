@@ -1,7 +1,7 @@
-from Expense import Expenses
+from . import Expense
 import matplotlib.pyplot as plt # Remember need to pip install matplotlib
 import collections
-expenses = Expenses()
+expenses = Expense.Expenses()
 expenses.read_expenses('data/spending_data.csv')
 spending_categories = []
 for expense in expenses.list:
