@@ -13,7 +13,6 @@ class Expenses():
     def __init__(self):
         self.list = []
         self.sum = 0
-
     # Read in the December spending data, row[2] is the $$, and need to format $$
     def read_expenses(self,filename):
         with open(filename, newline='') as csvfile:
@@ -30,13 +29,19 @@ class Expenses():
             food_expenses = set()
             unnecessary_expenses = set()
             for i in self.list:
-                if (i.category == 'Phone'    or i.category == 'Auto and Gas' or 
-                    i.category == 'Classes'  or i.category == 'Utilities' or 
-                    i.category == 'Mortgage'): 
+                if (i.category == 'Phone'    or i.category == 'Auto and Gas' or
+                    i.category == 'Classes'  or i.category == 'Utilities' or
+                    i.category == 'Mortgage'):
                     necessary_expenses.add(i)
                 elif(i.category == 'Groceries' or i.category == 'Eating Out'):
                     food_expenses.add(i)
                 else:
                     unnecessary_expenses.add(i)
-            
+
             return [necessary_expenses, food_expenses, unnecessary_expenses]
+
+    def categorize_set_comprehension(self):
+        necessary_expenses  = {x for x in self.list if x.category == 'Phone' or x.category == 'Auto and Gas' or x.category =='Classes' or x.category == 'Utilities' or x.category == 'Mortgage'}
+        food_expenses = {x for x in self.list if x.category == 'Groceries' or x.category == 'Eating Out'}
+        unnecessary_expenses =set(self.list) - necessary_expenses - food_expenses 
+        return necessary_expenses, food_expenses, unnecessary_expenses
